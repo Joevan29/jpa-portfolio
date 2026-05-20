@@ -32,8 +32,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://joevan.dev"
-const SITE_NAME = "JOEVAN.DEV"
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://joevan.site"
+const SITE_NAME = "JOEVAN.SITE"
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
