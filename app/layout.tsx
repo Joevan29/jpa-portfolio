@@ -32,27 +32,30 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://jpa.dev"),
-  title: "JPA.DEV — Joevan Pramana Achmad | Full Stack Engineer",
-  description:
-    "Portfolio of Joevan Pramana Achmad — Full Stack Backend & Cloud Engineer specializing in Go, Node.js, Next.js, IoT, and AI/ML. BNSP Certified. Google Cloud certified. TOEFL 670. Built with chaos.",
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://joevan.dev"
+const SITE_NAME = "JOEVAN.DEV"
 
-  authors: [{ name: "Joevan Pramana Achmad", url: "https://jpa.dev" }],
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: `${SITE_NAME} — Joevan Pramana Achmad | Full Stack Engineer`,
+  description:
+    "Brutalist portfolio of Joevan Pramana Achmad, a Full Stack Backend & Cloud Engineer specializing in Go, Node.js, Next.js, IoT, and Cloud architectures.",
+
+  authors: [{ name: "Joevan Pramana Achmad", url: SITE_URL }],
   creator: "Joevan Pramana Achmad",
-  alternates: { canonical: "https://jpa.dev" },
+  alternates: { canonical: SITE_URL },
   openGraph: {
-    title: "JPA.DEV — Joevan Pramana Achmad | Full Stack Engineer",
+    title: `${SITE_NAME} — Joevan Pramana Achmad | Full Stack Engineer`,
     description: "Backend & Cloud Engineer specializing in Go, Node.js, IoT, and AI/ML. BNSP Certified. Google Cloud certified.",
     type: "website",
-    url: "https://jpa.dev",
-    siteName: "JPA.DEV",
+    url: SITE_URL,
+    siteName: SITE_NAME,
     locale: "en_US",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "JPA.DEV Portfolio" }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: `${SITE_NAME} Portfolio` }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "JPA.DEV — Joevan Pramana Achmad",
+    title: `${SITE_NAME} — Joevan Pramana Achmad`,
     description: "Backend & Cloud Engineer specializing in Go, Node.js, IoT, and AI/ML.",
     images: ["/og-image.png"],
   },
@@ -68,7 +71,8 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: "",
+    // Ganti string kosong di bawah dengan token dari Google Search Console setelah domain kamu di-verify
+    google: "MASUKKAN_KODE_VERIFIKASI_GOOGLE_KAMU_DISINI",
   },
 }
 
@@ -81,7 +85,7 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'Joevan Pramana Achmad',
-    url: 'https://jpa.dev',
+    url: SITE_URL,
     jobTitle: 'Full Stack Engineer',
     description: 'Backend & Cloud Engineer specializing in Go, Node.js, Next.js, IoT, and AI/ML.',
     sameAs: [
