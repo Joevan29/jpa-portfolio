@@ -71,8 +71,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // Ganti string kosong di bawah dengan token dari Google Search Console setelah domain kamu di-verify
-    google: "MASUKKAN_KODE_VERIFIKASI_GOOGLE_KAMU_DISINI",
+    google: "YZz1Lx7zCAjO5no7zV-2E-CQlQnbNb61fkreUWE0aUg",
   },
 }
 
