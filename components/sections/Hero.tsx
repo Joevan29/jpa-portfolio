@@ -96,7 +96,7 @@ export default function Hero() {
             <div className="flex items-center gap-3 border-[2px] border-ink bg-white px-4 py-2.5 w-fit shadow-brutal">
               <span className="font-mono text-[9px] font-black bg-ink text-[#A2FF00] px-2 py-0.5 uppercase tracking-widest shrink-0">Now</span>
               <p className="font-mono text-[11px] text-ink leading-snug">
-                Building IoT tracking dashboard · PT Kirana Megatara
+                Building Mobile Apps · PT Kirana Megatara
               </p>
             </div>
             <GitHubActivity />
