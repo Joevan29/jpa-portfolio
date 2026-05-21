@@ -37,19 +37,19 @@ const SITE_NAME = "JOEVAN.SITE"
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  
+
   // Menggunakan template agar SEO tiap halaman unik
   title: {
     default: "Joevan Pramana Achmad | Full Stack Engineer",
     template: "%s | Joevan Pramana Achmad",
   },
-  
+
   description: "Backend Engineer specialized in IoT, Big Data, and Cloud Architecture. Portfolio showcasing brutalist design and technical excellence.",
 
   authors: [{ name: "Joevan Pramana Achmad", url: SITE_URL }],
   creator: "Joevan Pramana Achmad",
   alternates: { canonical: SITE_URL },
-  
+
   openGraph: {
     title: "Joevan Pramana Achmad | Full Stack Engineer",
     description: "Backend & Cloud Engineer specializing in Go, Node.js, IoT, and AI/ML.",
@@ -59,12 +59,12 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: `${SITE_NAME} Portfolio` }],
   },
-  
+
   robots: {
     index: true,
     follow: true,
   },
-  
+
   verification: {
     google: "YZz1Lx7zCAjO5no7zV-2E-CQlQnbNb61fkreUWE0aUg",
   },

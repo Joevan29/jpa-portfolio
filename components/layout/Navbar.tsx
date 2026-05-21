@@ -42,7 +42,10 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-4 md:top-6 left-4 right-4 md:left-6 md:right-6 z-50 pointer-events-none transition-all duration-300">
-      <div className="bg-white border-[3px] border-black shadow-[4px_4px_0_0_#000000] md:shadow-[6px_6px_0_0_#000000] flex items-center justify-between px-4 md:px-6 py-4 md:py-5 pointer-events-auto gap-4 mx-auto w-full max-w-7xl relative">
+      <div
+        className="bg-white border-[3px] border-black shadow-[4px_4px_0_0_#000000] md:shadow-[6px_6px_0_0_#000000] flex items-center justify-between py-4 md:py-5 pointer-events-auto gap-4 mx-auto w-full max-w-7xl relative"
+        style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}
+      >
         {/* Logo */}
         <a 
           href="#home" 

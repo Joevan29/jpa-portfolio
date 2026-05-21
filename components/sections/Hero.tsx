@@ -17,19 +17,19 @@ export default function Hero() {
     <section className="relative z-10 min-h-[100dvh] pt-32 pb-24 md:pt-0 md:pb-0 flex flex-col justify-center" id="home">
       
       {/* Draggable Stickers */}
-      <DraggableSticker initialX="10%" initialY="20%" rotate={-12} className="hidden md:block z-50">
+      <DraggableSticker initialX="5%" initialY="22%" rotate={-12} className="hidden md:block z-50">
         <div className="bg-[#A2FF00] border-[3px] border-black p-3 font-mono text-xl font-black shadow-brutal select-none">
           100% CHAOS
         </div>
       </DraggableSticker>
-      
-      <DraggableSticker initialX="85%" initialY="25%" rotate={15} className="hidden md:block z-50">
+
+      <DraggableSticker initialX="84%" initialY="20%" rotate={15} className="hidden md:block z-50">
         <div className="bg-[#FF3366] border-[3px] border-black p-4 rounded-full shadow-brutal select-none flex items-center justify-center">
           <span className="text-white font-display font-black text-2xl tracking-tighter">X_X</span>
         </div>
       </DraggableSticker>
 
-      <DraggableSticker initialX="75%" initialY="65%" rotate={-5} className="hidden md:block z-50">
+      <DraggableSticker initialX="73%" initialY="68%" rotate={-5} className="hidden md:block z-50">
         <div className="bg-white border-[3px] border-black px-4 py-2 flex flex-col items-center shadow-brutal select-none">
           <div className="w-16 h-12 flex items-end justify-between border-b-4 border-black pb-1 mb-1">
             <div className="w-1 h-full bg-black"></div>

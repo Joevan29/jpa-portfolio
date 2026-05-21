@@ -44,7 +44,7 @@
   --font-mono: var(--font-jetbrains-mono), monospace;
 
   /* === SECTION PADDING === */
-  --pad-x: clamp(1.25rem, 5vw, 4.5rem);
+  --pad-x: 1.25rem;
 }
 
 /* === RESET === */
@@ -217,13 +217,13 @@ img {
 
 @media (min-width: 768px) {
   :root {
-    --pad-x: 2.5rem;
+    --pad-x: 2rem;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1280px) {
   :root {
-    --pad-x: 4rem;
+    --pad-x: 3rem;
   }
 }
 
