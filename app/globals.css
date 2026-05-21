@@ -92,9 +92,9 @@ img {
 /* === TYPOGRAPHY CLASSES === */
 .text-hero {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 8vw, 7rem);
+  font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 800;
-  line-height: 0.9;
+  line-height: 1;
   letter-spacing: -0.03em;
 }
 
