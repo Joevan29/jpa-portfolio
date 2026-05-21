@@ -46,7 +46,7 @@ export default function Navbar() {
         {/* Logo */}
         <a 
           href="#home" 
-          className="font-mono font-bold text-xl sm:text-2xl md:text-3xl tracking-normal text-black whitespace-nowrap ml-0 md:ml-16 lg:ml-28 glitch-hover"
+          className="font-mono font-bold text-xl sm:text-2xl md:text-3xl tracking-normal text-black whitespace-nowrap glitch-hover"
           data-text="JPA"
         >
           JPA
@@ -73,7 +73,7 @@ export default function Navbar() {
         </div>
 
         {/* CTA + Terminal Hint */}
-        <div className="hidden md:flex items-center gap-3 mr-6 md:mr-16 lg:mr-28">
+        <div className="hidden md:flex items-center gap-3">
           <span className="font-mono text-[9px] text-ink opacity-30 tracking-widest border border-ink/20 px-1.5 py-0.5 rounded-sm hidden lg:block">
             ` terminal
           </span>
