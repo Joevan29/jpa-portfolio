@@ -14,15 +14,18 @@ const SKILL_TAGS = [
 
 export default function Hero() {
   return (
-    <section className="relative z-10 min-h-[100dvh] pt-28 md:pt-36 pb-24 grid items-center overflow-x-hidden" id="home">
-      
-      {/* Draggable Stickers */}
-      <DraggableSticker initialX="8%" initialY="15%" rotate={-12} className="hidden xl:block z-50">
+    <section
+      id="home"
+      className="relative z-10 w-full overflow-x-hidden min-h-[100dvh] flex flex-col justify-center pt-28 pb-20 md:pt-0 md:pb-0"
+    >
+
+      {/* Stiker hanya muncul di layar xl ke atas agar tidak overlap di laptop/HP */}
+      <DraggableSticker initialX="10%" initialY="20%" rotate={-12} className="hidden xl:block z-50">
         <div className="bg-[#A2FF00] border-[3px] border-black p-3 font-mono text-xl font-black shadow-brutal select-none">
           100% CHAOS
         </div>
       </DraggableSticker>
-      
+
       <DraggableSticker initialX="85%" initialY="25%" rotate={15} className="hidden xl:block z-50">
         <div className="bg-[#FF3366] border-[3px] border-black p-4 rounded-full shadow-brutal select-none flex items-center justify-center">
           <span className="text-white font-display font-black text-2xl tracking-tighter">X_X</span>
@@ -43,12 +46,15 @@ export default function Hero() {
         </div>
       </DraggableSticker>
 
+      {/* Main Content — Flexbox dua kolom, stacking di mobile */}
       <div
-        className="w-full max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-6 items-center justify-between px-6 md:px-10 lg:px-16"
+        className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10 md:gap-6"
+        style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}
       >
-        
-        {/* Left Column */}
-        <div className="flex flex-col gap-4 md:gap-5 z-20 flex-1 min-w-0 w-full">
+
+        {/* Left Column — flex-1 agar mengisi sisa ruang */}
+        <div className="flex flex-col gap-4 md:gap-5 z-20 w-full md:flex-1 min-w-0">
+
           {/* Open to Work badge */}
           <div className="flex items-center gap-2 w-fit">
             <span className="relative flex h-2.5 w-2.5">
@@ -58,7 +64,8 @@ export default function Hero() {
             <span className="font-mono text-xs font-black uppercase tracking-widest text-ink">Open to Work · July 2026</span>
           </div>
 
-          <h2 className="font-mono text-base md:text-xl text-ink max-w-xl leading-relaxed relative">
+          {/* Tagline h2 */}
+          <h2 className="font-mono text-ink leading-relaxed relative" style={{ fontSize: 'clamp(0.85rem, 1.5vw, 1.25rem)' }}>
             Meet your trusted Backend Engineer,{" "}
             <span className="relative inline-block whitespace-nowrap">
               <span className="relative z-10 font-bold px-1">disguised</span>
@@ -69,29 +76,34 @@ export default function Hero() {
             as a Frontend Developer.
           </h2>
 
-          <div className="relative inline-block w-fit mt-2">
-            <h1 className="text-hero text-ink whitespace-pre-line relative z-10">
+          {/* Name h1 dengan clamp() agar fluid */}
+          <div className="relative inline-block w-fit mt-1">
+            <h1
+              className="font-display font-black leading-[1.1] tracking-tighter text-ink whitespace-pre-line relative z-10"
+              style={{ fontSize: 'clamp(2.4rem, 6vw, 5rem)' }}
+            >
               Joevan Pramana{"\n"}Achmad
             </h1>
             {/* Decorative curve */}
-            <svg className="absolute -bottom-6 md:-bottom-10 right-0 w-24 h-8 md:w-40 md:h-12 z-0 pointer-events-none" viewBox="0 0 60 30" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <svg className="absolute -bottom-5 md:-bottom-8 right-0 w-24 h-8 md:w-36 md:h-10 z-0 pointer-events-none" viewBox="0 0 60 30" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M5 25 C 20 5, 40 5, 55 25" stroke="#000000" strokeWidth="3" strokeLinecap="round" fill="none" />
             </svg>
           </div>
 
-          <div className="flex flex-wrap gap-2 md:gap-3 mt-4 md:mt-8">
+          {/* Skill Tags */}
+          <div className="flex flex-wrap gap-2 mt-4 md:mt-6">
             {SKILL_TAGS.map((tag) => (
               <span
                 key={tag.label}
-                className={`inline-flex items-center px-4 md:px-5 py-2 rounded-full font-mono text-xs font-bold text-ink border-2 border-ink ${tag.bg} shadow-[2px_2px_0_0_#000000] hover:-translate-y-1 hover:shadow-brutal hover:border-ink transition-all cursor-default`}
+                className={`inline-flex items-center px-4 py-1.5 rounded-full font-mono text-xs font-bold text-ink border-2 border-ink ${tag.bg} shadow-[2px_2px_0_0_#000000] hover:-translate-y-1 hover:shadow-brutal transition-all cursor-default`}
               >
                 {tag.label}
               </span>
             ))}
           </div>
 
-          {/* GitHub Activity + Currently Building */}
-          <div className="flex flex-col gap-2 mt-2">
+          {/* Currently Building + GitHub Activity */}
+          <div className="flex flex-col gap-2 mt-1">
             <div className="flex items-center gap-3 border-[2px] border-ink bg-white px-4 py-2.5 w-fit shadow-brutal">
               <span className="font-mono text-[9px] font-black bg-ink text-[#A2FF00] px-2 py-0.5 uppercase tracking-widest shrink-0">Now</span>
               <p className="font-mono text-[11px] text-ink leading-snug">
@@ -102,9 +114,9 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Right Column (Avatar) */}
-        <div className="flex justify-center md:justify-end items-center mt-6 md:mt-0 z-10 shrink-0 w-full md:w-[220px] lg:w-[260px] xl:w-[300px]">
-          <div className="group relative w-full">
+        {/* Right Column (Avatar Polaroid) — lebar proporsional 38% di desktop */}
+        <div className="flex justify-center items-center z-10 w-full md:w-[38%] shrink-0">
+          <div className="group relative w-[70%] sm:w-[55%] md:w-full" style={{ maxWidth: 'clamp(180px, 28vw, 380px)' }}>
             {/* Polaroid Frame */}
             <div className="bg-surface border-[3px] md:border-4 border-ink p-3 pb-12 md:pb-14 rotate-3 group-hover:rotate-0 transition-all duration-500 shadow-brutal relative z-10">
               <div className="relative w-full aspect-[4/5] border-2 border-ink overflow-hidden bg-surface-alt">
@@ -112,7 +124,7 @@ export default function Hero() {
                   src="/avatar.png"
                   alt="Joevan Pramana Achmad"
                   fill
-                  sizes="(max-width: 768px) 100vw, 280px"
+                  sizes="(max-width: 640px) 70vw, (max-width: 768px) 55vw, 28vw"
                   className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                   priority
                 />
@@ -140,6 +152,7 @@ export default function Hero() {
           ))}
         </div>
       </div>
+
     </section>
   )
 }
