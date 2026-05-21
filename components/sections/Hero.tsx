@@ -14,22 +14,22 @@ const SKILL_TAGS = [
 
 export default function Hero() {
   return (
-    <section className="relative z-10 min-h-[100dvh] pt-32 pb-24 md:pt-32 md:pb-24 flex flex-col" id="home">
+    <section className="relative z-10 min-h-[100dvh] pt-28 md:pt-36 pb-24 grid items-center overflow-x-hidden" id="home">
       
       {/* Draggable Stickers */}
-      <DraggableSticker initialX="10%" initialY="20%" rotate={-12} className="hidden md:block z-50">
+      <DraggableSticker initialX="8%" initialY="15%" rotate={-12} className="hidden xl:block z-50">
         <div className="bg-[#A2FF00] border-[3px] border-black p-3 font-mono text-xl font-black shadow-brutal select-none">
           100% CHAOS
         </div>
       </DraggableSticker>
       
-      <DraggableSticker initialX="85%" initialY="25%" rotate={15} className="hidden md:block z-50">
+      <DraggableSticker initialX="85%" initialY="25%" rotate={15} className="hidden xl:block z-50">
         <div className="bg-[#FF3366] border-[3px] border-black p-4 rounded-full shadow-brutal select-none flex items-center justify-center">
           <span className="text-white font-display font-black text-2xl tracking-tighter">X_X</span>
         </div>
       </DraggableSticker>
 
-      <DraggableSticker initialX="75%" initialY="65%" rotate={-5} className="hidden md:block z-50">
+      <DraggableSticker initialX="75%" initialY="65%" rotate={-5} className="hidden xl:block z-50">
         <div className="bg-white border-[3px] border-black px-4 py-2 flex flex-col items-center shadow-brutal select-none">
           <div className="w-16 h-12 flex items-end justify-between border-b-4 border-black pb-1 mb-1">
             <div className="w-1 h-full bg-black"></div>
@@ -44,12 +44,11 @@ export default function Hero() {
       </DraggableSticker>
 
       <div
-        className="w-full max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-4 items-center justify-between my-auto"
-        style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}
+        className="w-full max-w-7xl mx-auto flex flex-col md:flex-row gap-8 md:gap-6 items-center justify-between px-6 md:px-10 lg:px-16"
       >
         
         {/* Left Column */}
-        <div className="flex flex-col gap-4 md:gap-6 z-20 flex-1 w-full max-w-3xl">
+        <div className="flex flex-col gap-4 md:gap-5 z-20 flex-1 min-w-0 w-full">
           {/* Open to Work badge */}
           <div className="flex items-center gap-2 w-fit">
             <span className="relative flex h-2.5 w-2.5">
@@ -71,7 +70,7 @@ export default function Hero() {
           </h2>
 
           <div className="relative inline-block w-fit mt-2">
-            <h1 className="font-display font-black text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] xl:text-7xl leading-[1.1] tracking-tighter text-ink whitespace-pre-line relative z-10">
+            <h1 className="text-hero text-ink whitespace-pre-line relative z-10">
               Joevan Pramana{"\n"}Achmad
             </h1>
             {/* Decorative curve */}
@@ -104,8 +103,8 @@ export default function Hero() {
         </div>
 
         {/* Right Column (Avatar) */}
-        <div className="flex justify-center md:justify-end items-center mt-8 md:mt-0 z-10 shrink-0 w-full md:w-auto md:pl-4 lg:pl-8">
-          <div className="group relative w-[60%] max-w-[200px] md:w-[240px] lg:w-[280px]">
+        <div className="flex justify-center md:justify-end items-center mt-6 md:mt-0 z-10 shrink-0 w-full md:w-[220px] lg:w-[260px] xl:w-[300px]">
+          <div className="group relative w-full">
             {/* Polaroid Frame */}
             <div className="bg-surface border-[3px] md:border-4 border-ink p-3 pb-12 md:pb-14 rotate-3 group-hover:rotate-0 transition-all duration-500 shadow-brutal relative z-10">
               <div className="relative w-full aspect-[4/5] border-2 border-ink overflow-hidden bg-surface-alt">
