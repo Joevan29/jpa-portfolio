@@ -1,6 +1,6 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://joevan.dev"
+const SITE_URL = "https://joevan.site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -10,5 +10,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 1,
     },
-  ]
+  ];
 }
