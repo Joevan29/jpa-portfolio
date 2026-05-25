@@ -14,39 +14,38 @@ const SKILL_TAGS = [
 
 export default function Hero() {
   return (
-    <section className="relative z-10 min-h-[100dvh] pt-32 pb-24 md:pt-0 md:pb-0 flex flex-col justify-center" id="home">
+    <section className="relative z-10 min-h-[100dvh] pt-32 pb-24 md:pt-0 md:pb-0 flex flex-col justify-center items-center w-full" id="home">
       
-      {/* Draggable Stickers */}
-      <DraggableSticker initialX="5%" initialY="22%" rotate={-12} className="hidden md:block z-50">
-        <div className="bg-[#A2FF00] border-[3px] border-black p-3 font-mono text-xl font-black shadow-brutal select-none">
-          100% CHAOS
-        </div>
-      </DraggableSticker>
-
-      <DraggableSticker initialX="84%" initialY="20%" rotate={15} className="hidden md:block z-50">
-        <div className="bg-[#FF3366] border-[3px] border-black p-4 rounded-full shadow-brutal select-none flex items-center justify-center">
-          <span className="text-white font-display font-black text-2xl tracking-tighter">X_X</span>
-        </div>
-      </DraggableSticker>
-
-      <DraggableSticker initialX="73%" initialY="68%" rotate={-5} className="hidden md:block z-50">
-        <div className="bg-white border-[3px] border-black px-4 py-2 flex flex-col items-center shadow-brutal select-none">
-          <div className="w-16 h-12 flex items-end justify-between border-b-4 border-black pb-1 mb-1">
-            <div className="w-1 h-full bg-black"></div>
-            <div className="w-2 h-4/5 bg-black"></div>
-            <div className="w-1 h-3/5 bg-black"></div>
-            <div className="w-3 h-full bg-black"></div>
-            <div className="w-1 h-2/5 bg-black"></div>
-            <div className="w-2 h-full bg-black"></div>
-          </div>
-          <span className="font-mono text-[10px] font-black">SCAN ME</span>
-        </div>
-      </DraggableSticker>
-
       <div
-        className="w-full max-w-7xl mx-auto flex flex-col md:flex-row gap-4 md:gap-4 items-center justify-between"
+        className="w-full max-w-7xl flex flex-col md:flex-row gap-4 md:gap-4 items-center justify-between relative"
         style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}
       >
+        {/* Draggable Stickers */}
+        <DraggableSticker initialX="2%" initialY="-2%" rotate={-12} className="hidden md:block z-50">
+          <div className="bg-[#A2FF00] border-[3px] border-black p-3 font-mono text-xl font-black shadow-brutal select-none">
+            100% CHAOS
+          </div>
+        </DraggableSticker>
+
+        <DraggableSticker initialX="85%" initialY="-4%" rotate={15} className="hidden md:block z-50">
+          <div className="bg-[#FF3366] border-[3px] border-black p-4 rounded-full shadow-brutal select-none flex items-center justify-center">
+            <span className="text-white font-display font-black text-2xl tracking-tighter">X_X</span>
+          </div>
+        </DraggableSticker>
+
+        <DraggableSticker initialX="72%" initialY="64%" rotate={-5} className="hidden md:block z-50">
+          <div className="bg-white border-[3px] border-black px-4 py-2 flex flex-col items-center shadow-brutal select-none">
+            <div className="w-16 h-12 flex items-end justify-between border-b-4 border-black pb-1 mb-1">
+              <div className="w-1 h-full bg-black"></div>
+              <div className="w-2 h-4/5 bg-black"></div>
+              <div className="w-1 h-3/5 bg-black"></div>
+              <div className="w-3 h-full bg-black"></div>
+              <div className="w-1 h-2/5 bg-black"></div>
+              <div className="w-2 h-full bg-black"></div>
+            </div>
+            <span className="font-mono text-[10px] font-black">SCAN ME</span>
+          </div>
+        </DraggableSticker>
         
         {/* Left Column */}
         <div className="flex flex-col gap-4 md:gap-6 z-20 w-full md:w-[60%]">

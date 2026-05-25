@@ -5,8 +5,8 @@ import TimelineItem from "@/components/ui/TimelineItem"
 
 export default function TheJourney() {
   return (
-    <section className="relative z-10 overflow-hidden" id="journey" style={{ paddingTop: 'clamp(5rem, 10vw, 13rem)', paddingBottom: 'clamp(5rem, 10vw, 13rem)' }}>
-      <div className="w-full max-w-7xl mx-auto relative" style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
+    <section className="relative z-10 overflow-hidden flex flex-col items-center w-full" id="journey" style={{ paddingTop: 'clamp(5rem, 10vw, 13rem)', paddingBottom: 'clamp(5rem, 10vw, 13rem)' }}>
+      <div className="w-full max-w-7xl relative" style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
         <div className="flex flex-col md:flex-row justify-between items-start mb-12 md:mb-20 relative z-20 gap-6 w-full">
           <h2 className="font-display font-black text-4xl md:text-5xl text-ink glitch-hover" data-text="The Journey">
             The Journey

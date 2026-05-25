@@ -14,7 +14,7 @@ const CARDS = [
     badgeColor: "#000000",
     badgeText: "#F5F3A1",
     rotate: -8,
-    left: 30,
+    left: "4%",
     top: 30,
     icon: "✦",
     width: 190,
@@ -29,7 +29,7 @@ const CARDS = [
     badgeColor: "#000000",
     badgeText: "#A2FF00",
     rotate: 4,
-    left: 280,
+    left: "26%",
     top: 220,
     icon: "☁",
     width: 210,
@@ -44,7 +44,7 @@ const CARDS = [
     badgeColor: "#000000",
     badgeText: "#FFFFFF",
     rotate: -5,
-    left: 560,
+    left: "66%",
     top: 40,
     icon: "⚔",
     width: 180,
@@ -59,7 +59,7 @@ const CARDS = [
     badgeColor: "#000000",
     badgeText: "#D9C4FF",
     rotate: 6,
-    left: 120,
+    left: "14%",
     top: 330,
     icon: "◈",
     width: 200,
@@ -74,7 +74,7 @@ const CARDS = [
     badgeColor: "#A2FF00",
     badgeText: "#0D0D0D",
     rotate: -4,
-    left: 500,
+    left: "54%",
     top: 300,
     icon: "670",
     bigScore: true,
@@ -145,8 +145,8 @@ export default function Credentials() {
   const titleRef = useReveal('reveal-up')
 
   return (
-    <section className="relative z-10" id="credentials" style={{ paddingTop: '8rem', paddingBottom: '8rem' }}>
-      <div className="w-full max-w-7xl mx-auto" style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
+    <section className="relative z-10 flex flex-col items-center w-full" id="credentials" style={{ paddingTop: '8rem', paddingBottom: '8rem' }}>
+      <div className="w-full max-w-7xl" style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
 
         {/* Title */}
         <div ref={titleRef as React.RefObject<HTMLDivElement>} className="mb-12 flex items-start sm:items-end justify-between flex-wrap gap-4">

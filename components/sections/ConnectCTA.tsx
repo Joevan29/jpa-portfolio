@@ -2,8 +2,8 @@
 
 export default function ConnectCTA() {
   return (
-    <section className="relative z-10 overflow-hidden" id="contact" style={{ paddingTop: 'clamp(5rem, 10vw, 13rem)', paddingBottom: 'clamp(5rem, 10vw, 13rem)' }}>
-      <div className="w-full max-w-7xl mx-auto flex flex-col items-center" style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
+    <section className="relative z-10 overflow-hidden flex flex-col items-center w-full" id="contact" style={{ paddingTop: 'clamp(5rem, 10vw, 13rem)', paddingBottom: 'clamp(5rem, 10vw, 13rem)' }}>
+      <div className="w-full max-w-7xl flex flex-col items-center" style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
         {/* Banner Stack */}
         <div className="relative group cursor-pointer w-[85%] md:w-[95%] max-w-[600px] mx-auto my-8 md:my-12">
           {/* Neon Green Offset Layer */}

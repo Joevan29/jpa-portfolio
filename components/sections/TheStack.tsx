@@ -91,8 +91,8 @@ export default function TheStack() {
   const titleRef = useReveal('reveal-up')
 
   return (
-    <section className="relative z-10" id="stack" style={{ paddingTop: 'clamp(5rem, 10vw, 10rem)', paddingBottom: 'clamp(5rem, 10vw, 10rem)' }}>
-      <div className="w-full max-w-7xl mx-auto" style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
+    <section className="relative z-10 flex flex-col items-center w-full" id="stack" style={{ paddingTop: 'clamp(5rem, 10vw, 10rem)', paddingBottom: 'clamp(5rem, 10vw, 10rem)' }}>
+      <div className="w-full max-w-7xl" style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
 
         {/* Title row */}
         <div ref={titleRef as React.RefObject<HTMLDivElement>} className="mb-16 md:mb-20 flex items-end gap-6 flex-wrap">
