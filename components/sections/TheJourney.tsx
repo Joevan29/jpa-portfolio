@@ -1,51 +1,93 @@
-"use client"
+'use client'
 
-import { EXPERIENCES } from "@/lib/data"
-import TimelineItem from "@/components/ui/TimelineItem"
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { EXPERIENCES } from '@/lib/data'
+
+const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number]
 
 export default function TheJourney() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { once: true, margin: '-80px' })
+
   return (
-    <section className="relative z-10 overflow-hidden flex flex-col items-center w-full" id="journey" style={{ paddingTop: 'clamp(5rem, 10vw, 13rem)', paddingBottom: 'clamp(5rem, 10vw, 13rem)' }}>
-      <div className="w-full max-w-7xl relative" style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}>
-        <div className="flex flex-col md:flex-row justify-between items-start mb-12 md:mb-20 relative z-20 gap-6 w-full">
-          <h2 className="font-display font-black text-4xl md:text-5xl text-ink glitch-hover" data-text="The Journey">
-            The Journey
-          </h2>
-          
-          {/* Floating Stats Badges */}
-          <div className="flex items-center gap-6 shrink-0 md:mr-4">
-            <div className="bg-[#A2FF00] border-[3px] border-ink w-24 h-14 flex flex-col items-center justify-center text-black -rotate-6 shadow-brutal">
-              <span className="font-mono text-[9px] md:text-[10px] font-black">BACKEND</span>
-              <span className="font-mono text-[9px] md:text-[10px] font-black">DEV</span>
-            </div>
-            <div className="bg-[#D9C4FF] border-[3px] border-ink rounded-full w-24 h-24 flex flex-col items-center justify-center text-black rotate-6 shadow-brutal">
-              <span className="font-mono text-lg font-black leading-none">5+</span>
-              <span className="font-mono text-[10px] font-black leading-tight text-center">PROJECTS</span>
-            </div>
-          </div>
+    <section
+      id="journey"
+      ref={ref}
+      className="scroll-mt-24 bg-transparent py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8 border-t border-purple-500/15"
+    >
+      <div className="w-full max-w-6xl mx-auto">
+        {/* Centered Header with Generous Space */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, ease: EASE }}
+            className="glass-pill px-4 py-1.5 text-xs font-mono uppercase tracking-widest text-[#C084FC] inline-block mb-4 font-bold bg-[#140b28]/80 border border-purple-500/25"
+          >
+            Professional Journey
+          </motion.div>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
+            className="font-instrument text-4xl sm:text-6xl md:text-7xl text-white tracking-tight leading-tight"
+          >
+            Where I&apos;ve <em className="italic text-white/60">Shipped &amp; Contributed</em><span className="text-[#A2FF00]">.</span>
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
+            className="text-white/70 text-sm sm:text-base max-w-xl mx-auto mt-4 font-normal"
+          >
+            Track record of shipping mission-critical systems across enterprise logistics, insurance, and academic research.
+          </motion.p>
         </div>
 
-        {/* Timeline Container */}
-        <div className="relative w-full pt-4 md:pt-10">
-          {/* Wavy Vertical Line */}
-          <div 
-            className="absolute left-[26px] md:left-1/2 md:-translate-x-1/2 top-6 bottom-0 w-[12px] z-0" 
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='80' viewBox='0 0 12 80' fill='none'%3E%3Cpath d='M 6,0 C 6,10 1,10 1,20 C 1,30 6,30 6,40 C 6,50 11,50 11,60 C 11,70 6,70 6,80' stroke='black' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E")`,
-              backgroundRepeat: 'repeat-y',
-              backgroundSize: '12px 80px'
-            }}
-            aria-hidden="true" 
-          />
+        {/* Timeline Cards with Generous Spacing */}
+        <div className="flex flex-col gap-5 sm:gap-6">
+          {EXPERIENCES.map((exp, i) => (
+            <motion.div
+              key={exp.id}
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.1 * i, ease: EASE }}
+              className="glass-panel glass-panel-interactive p-6 sm:p-8 flex flex-col md:flex-row gap-6 md:gap-12 justify-between items-start rounded-3xl shadow-2xl border border-white/15"
+            >
+              {/* Left: Role & Company */}
+              <div className="md:w-1/3 flex flex-col gap-2 shrink-0">
+                <span className="font-mono text-xs uppercase text-[#A2FF00] font-bold tracking-wider">
+                  {exp.period}
+                </span>
+                <h3 className="font-instrument text-2xl sm:text-3xl text-white font-bold mt-1 tracking-tight">
+                  {exp.role}
+                </h3>
+                <div className="font-mono text-xs text-white/60 tracking-wide mt-0.5">
+                  {exp.company}
+                </div>
+                <span className="mt-3 glass-pill px-3.5 py-1 font-mono text-[10px] uppercase text-white/80 w-fit">
+                  {exp.type}
+                </span>
+              </div>
 
-          <div className="flex flex-col gap-24 md:gap-32 relative z-10 w-full pl-16 md:pl-0">
-            {EXPERIENCES.map((exp, i) => (
-              <TimelineItem key={exp.id} experience={exp} index={i} />
-            ))}
-          </div>
+              {/* Right: Bullet Impact Points */}
+              <div className="md:w-2/3 flex flex-col gap-4 border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-10">
+                {exp.description.map((desc, di) => (
+                  <div key={di} className="flex items-start gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#A2FF00] mt-2 shrink-0 shadow-[0_0_6px_#A2FF00]" />
+                    <p className="text-xs sm:text-sm text-white/75 leading-relaxed font-normal">
+                      {desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
-
     </section>
   )
 }

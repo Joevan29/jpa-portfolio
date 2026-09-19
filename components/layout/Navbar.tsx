@@ -1,122 +1,132 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import HireMeButton from "@/components/ui/HireMeButton"
+import { useState, useEffect } from 'react'
+import { Menu, X, ArrowUpRight } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const NAV_LINKS = [
-  { label: "Home", href: "#home" },
-  { label: "Stack", href: "#stack" },
-  { label: "Credentials", href: "#credentials" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#journey" },
-  { label: "Contact", href: "#contact" },
+  { label: 'Home', href: '#home' },
+  { label: 'About', href: '#about' },
+  { label: 'Work', href: '#works' },
+  { label: 'Stack', href: '#stack' },
+  { label: 'Journey', href: '#journey' },
 ]
 
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState("home")
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "stack", "credentials", "projects", "journey", "contact"]
-      const scrollPosition = window.scrollY + 200 // Offset
-
-      for (const section of sections) {
-        const el = document.getElementById(section)
-        if (el) {
-          const top = el.offsetTop
-          const height = el.offsetHeight
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section)
-            break
-          }
-        }
-      }
+      setScrolled(window.scrollY > 200)
     }
-
-    window.addEventListener("scroll", handleScroll)
     handleScroll()
-    return () => window.removeEventListener("scroll", handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
-    <nav className="fixed top-4 md:top-6 left-0 right-0 w-full z-50 pointer-events-none transition-all duration-300 flex justify-center">
-      <div className="section-container pointer-events-none">
-        <div
-          className="bg-white border-[3px] border-black shadow-[4px_4px_0_0_#000000] md:shadow-[6px_6px_0_0_#000000] flex items-center justify-between py-4 md:py-5 pointer-events-auto gap-4 w-full relative"
-          style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}
+    <>
+      {/* Floating Glass Navbar - reveals smoothly when scrolling past initial studio hero */}
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-400 py-3.5 sm:py-4 px-4 sm:px-8 md:px-12 flex justify-between items-center ${
+          scrolled
+            ? 'opacity-100 translate-y-0 bg-[#070412]/90 backdrop-blur-xl border-b border-purple-500/20 shadow-2xl pointer-events-auto'
+            : 'opacity-0 -translate-y-4 pointer-events-none'
+        }`}
+      >
+        {/* Left: Minimalist Brand Monogram */}
+        <a
+          href="#home"
+          className="flex items-center gap-2 group cursor-pointer"
+          aria-label="Back to Top"
         >
-          {/* Logo */}
-          <a 
-            href="#home" 
-            className="font-mono font-bold text-xl sm:text-2xl md:text-3xl tracking-normal text-black whitespace-nowrap glitch-hover"
-            data-text="JPA"
-          >
-            JPA
-          </a>
+          <span className="font-instrument text-2xl sm:text-3xl text-white font-bold tracking-tight group-hover:opacity-80 transition-opacity">
+            JPA<span className="text-[#A2FF00]">.</span>
+          </span>
+        </a>
 
-          {/* Desktop Links (Text Based, Centered) */}
-          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-4 lg:gap-6 xl:gap-10 font-mono text-sm font-bold whitespace-nowrap pointer-events-auto">
-            {NAV_LINKS.map((link) => {
-              const isActive = activeSection === link.href.substring(1)
-              return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className={`text-black tracking-wide transition-all ${
-                    isActive 
-                      ? "underline decoration-[#A2FF00] decoration-[4px] underline-offset-4" 
-                      : "opacity-60 hover:opacity-100 hover:underline hover:decoration-black hover:decoration-[2px] hover:underline-offset-4"
-                  }`}
-                >
-                  {link.label}
-                </a>
-              )
-            })}
-          </div>
-
-          {/* CTA + Terminal Hint */}
-          <div className="hidden md:flex items-center gap-3">
-            <span className="font-mono text-[9px] text-ink opacity-30 tracking-widest border border-ink/20 px-1.5 py-0.5 rounded-sm hidden lg:block">
-              ` terminal
-            </span>
-            <HireMeButton />
-          </div>
-
-          {/* Mobile Burger (Simplified) */}
-          <button
-            className="md:hidden flex flex-col gap-1.5 p-2 z-50 relative pointer-events-auto"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
-          >
-            <span className={`block w-6 h-[3px] bg-black transition-transform rounded-full ${menuOpen ? 'rotate-45 translate-y-[9px]' : ''}`} />
-            <span className={`block w-6 h-[3px] bg-black transition-opacity rounded-full ${menuOpen ? 'opacity-0' : ''}`} />
-            <span className={`block w-6 h-[3px] bg-black transition-transform rounded-full ${menuOpen ? '-rotate-45 -translate-y-[9px]' : ''}`} />
-          </button>
-
-          {/* Mobile Menu Overlay */}
-          <div className={`fixed inset-0 bg-[#F5F3A1] z-40 flex flex-col items-center justify-center gap-10 transition-opacity duration-300 pointer-events-auto ${menuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        {/* Right: Sleek Floating Glass Nav Pill */}
+        <div className="hidden md:flex items-center gap-1.5 p-1.5 rounded-full bg-[#140b28]/85 backdrop-blur-2xl border border-purple-500/25 shadow-2xl">
+          <nav className="flex items-center px-3 gap-5 lg:gap-6 text-xs font-mono tracking-wider">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="font-mono text-2xl font-bold tracking-widest text-black"
-                onClick={() => setMenuOpen(false)}
+                className="text-white/70 hover:text-white transition-colors duration-200"
               >
                 {link.label}
               </a>
             ))}
-            <a
-              href="#contact"
-              className="px-8 py-4 bg-black !text-white border-[3px] border-black font-mono text-lg font-bold tracking-widest hover:bg-[#A2FF00] hover:!text-black transition-colors"
-              onClick={() => setMenuOpen(false)}
-            >
-              Hire Me
-            </a>
-          </div>
+          </nav>
+
+          {/* Action Button Pill - Explicit High Contrast */}
+          <a
+            href="#contact"
+            style={{ color: '#000000', backgroundColor: '#ffffff' }}
+            className="px-4 py-2 rounded-full text-xs font-mono font-bold !text-black !bg-white hover:!bg-[#A2FF00] transition-colors flex items-center gap-1.5 shadow-md ml-1 cursor-pointer"
+          >
+            <span style={{ color: '#000000' }} className="font-bold">Get in Touch</span>
+            <ArrowUpRight size={13} style={{ color: '#000000' }} />
+          </a>
         </div>
-      </div>
-    </nav>
+
+        {/* Mobile Hamburger Toggle Button */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle navigation menu"
+          className="md:hidden p-2 rounded-full bg-[#140b28]/90 border border-purple-500/25 text-white/85 hover:text-white cursor-pointer"
+        >
+          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </header>
+
+      {/* Mobile Menu Drawer */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-x-4 top-18 z-50 md:hidden glass-panel p-6 shadow-2xl flex flex-col gap-4 border border-purple-500/25 bg-[#140b28]/95 backdrop-blur-3xl rounded-3xl"
+          >
+            <div className="flex flex-col gap-2 font-mono text-xs uppercase tracking-wider">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="py-3 px-3.5 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition-all flex items-center justify-between"
+                >
+                  <span>{link.label}</span>
+                  <ArrowUpRight size={15} className="opacity-40" />
+                </a>
+              ))}
+            </div>
+
+            <div className="pt-4 border-t border-white/10 flex flex-col gap-2.5">
+              <a
+                href="/cv.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="glass-pill w-full py-2.5 text-center font-mono text-xs uppercase tracking-wider text-white hover:bg-white/10"
+              >
+                Download Resume (CV)
+              </a>
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                style={{ color: '#000000', backgroundColor: '#ffffff' }}
+                className="w-full py-2.5 rounded-full text-center font-mono text-xs uppercase tracking-wider font-bold !text-black !bg-white hover:!bg-[#A2FF00] transition-colors shadow-lg"
+              >
+                Get in Touch ↗
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }

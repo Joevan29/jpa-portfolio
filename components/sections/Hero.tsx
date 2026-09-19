@@ -1,144 +1,243 @@
-"use client"
+'use client'
 
-import Image from "next/image"
-import DraggableSticker from "@/components/ui/DraggableSticker"
-import GitHubActivity from "@/components/ui/GitHubActivity"
+import { useRef } from 'react'
+import Image from 'next/image'
+import { motion, useInView } from 'framer-motion'
+import { ArrowUpRight, Download, Server, Cpu, Database, Cloud } from 'lucide-react'
 
-const SKILL_TAGS = [
-  { label: "@Node.js", bg: "bg-[#D9C4FF]" },
-  { label: "@Go", bg: "bg-[#86E4B1]" },
-  { label: "@PostgreSQL", bg: "bg-[#80DEEA]" },
-  { label: "@BigQuery", bg: "bg-[#FFC4D9]" },
-  { label: "@React", bg: "bg-[#FFF59D]" },
+// Luminous 3D glowing orb / terrain landscape loop
+const V_HERO_BG = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_074625_a81f018a-956b-43fb-9aee-4d1508e30e6a.mp4'
+
+const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number]
+
+const IMPACT_METRICS = [
+  {
+    value: '10k+',
+    label: 'Req/Sec Handled',
+    desc: 'Peak traffic without latency drop',
+    icon: Server,
+  },
+  {
+    value: '99.9%',
+    label: 'Target Uptime',
+    desc: 'Resilient microservices & failover',
+    icon: Cpu,
+  },
+  {
+    value: '5+',
+    label: 'Production Systems',
+    desc: 'Enterprise ERP, SAP & cloud apps',
+    icon: Database,
+  },
+  {
+    value: 'Cloud',
+    label: 'Google Cloud Infra',
+    desc: 'BigQuery, Docker & CI/CD pipelines',
+    icon: Cloud,
+  },
 ]
 
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const inView = useInView(sectionRef, { once: true, margin: '-60px' })
+
   return (
-    <section className="relative z-10 min-h-[100dvh] pt-32 pb-24 md:pt-0 md:pb-0 flex flex-col justify-center items-center w-full" id="home">
-      
-      <div
-        className="w-full max-w-7xl flex flex-col md:flex-row gap-4 md:gap-4 items-center justify-between relative"
-        style={{ paddingLeft: 'var(--pad-x)', paddingRight: 'var(--pad-x)' }}
-      >
-        {/* Draggable Stickers */}
-        <DraggableSticker initialX="2%" initialY="-2%" rotate={-12} className="hidden md:block z-50">
-          <div className="bg-[#A2FF00] border-[3px] border-black p-3 font-mono text-xl font-black shadow-brutal select-none">
-            100% CHAOS
-          </div>
-        </DraggableSticker>
-
-        <DraggableSticker initialX="85%" initialY="-4%" rotate={15} className="hidden md:block z-50">
-          <div className="bg-[#FF3366] border-[3px] border-black p-4 rounded-full shadow-brutal select-none flex items-center justify-center">
-            <span className="text-white font-display font-black text-2xl tracking-tighter">X_X</span>
-          </div>
-        </DraggableSticker>
-
-        <DraggableSticker initialX="72%" initialY="64%" rotate={-5} className="hidden md:block z-50">
-          <div className="bg-white border-[3px] border-black px-4 py-2 flex flex-col items-center shadow-brutal select-none">
-            <div className="w-16 h-12 flex items-end justify-between border-b-4 border-black pb-1 mb-1">
-              <div className="w-1 h-full bg-black"></div>
-              <div className="w-2 h-4/5 bg-black"></div>
-              <div className="w-1 h-3/5 bg-black"></div>
-              <div className="w-3 h-full bg-black"></div>
-              <div className="w-1 h-2/5 bg-black"></div>
-              <div className="w-2 h-full bg-black"></div>
-            </div>
-            <span className="font-mono text-[10px] font-black">SCAN ME</span>
-          </div>
-        </DraggableSticker>
-        
-        {/* Left Column */}
-        <div className="flex flex-col gap-4 md:gap-6 z-20 w-full md:w-[60%]">
-          {/* Open to Work badge */}
-          <div className="flex items-center gap-2 w-fit">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#A2FF00] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#A2FF00]"></span>
-            </span>
-            <span className="font-mono text-xs font-black uppercase tracking-widest text-ink">Open to Work · July 2026</span>
-          </div>
-
-          <h2 className="font-mono text-base md:text-xl text-ink max-w-xl leading-relaxed relative">
-            Meet your trusted Backend Engineer,{" "}
-            <span className="relative inline-block whitespace-nowrap">
-              <span className="relative z-10 font-bold px-1">disguised</span>
-              <svg className="absolute inset-0 w-[110%] h-[140%] -top-[20%] -left-[5%] z-0 pointer-events-none" viewBox="0 0 100 40" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 5 C 5 5, 2 15, 2 20 C 2 35, 15 38, 50 38 C 85 38, 98 35, 98 20 C 98 5, 85 2, 50 2 C 20 2, 10 8, 15 15" stroke="#000000" strokeWidth="2.5" strokeLinecap="round" />
-              </svg>
-            </span>{" "}
-            as a Frontend Developer.
-          </h2>
-
-          <div className="relative inline-block w-fit mt-2">
-            <h1 className="font-display font-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tighter text-ink whitespace-pre-line relative z-10">
-              Joevan Pramana{"\n"}Achmad
-            </h1>
-            {/* Decorative curve */}
-            <svg className="absolute -bottom-6 md:-bottom-10 right-0 w-24 h-8 md:w-40 md:h-12 z-0 pointer-events-none" viewBox="0 0 60 30" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M5 25 C 20 5, 40 5, 55 25" stroke="#000000" strokeWidth="3" strokeLinecap="round" fill="none" />
-            </svg>
-          </div>
-
-          <div className="flex flex-wrap gap-2 md:gap-3 mt-4 md:mt-8">
-            {SKILL_TAGS.map((tag) => (
-              <span
-                key={tag.label}
-                className={`inline-flex items-center px-4 md:px-5 py-2 rounded-full font-mono text-xs font-bold text-ink border-2 border-ink ${tag.bg} shadow-[2px_2px_0_0_#000000] hover:-translate-y-1 hover:shadow-brutal hover:border-ink transition-all cursor-default`}
-              >
-                {tag.label}
-              </span>
-            ))}
-          </div>
-
-          {/* GitHub Activity + Currently Building */}
-          <div className="flex flex-col gap-2 mt-2">
-            <div className="flex items-center gap-3 border-[2px] border-ink bg-white px-4 py-2.5 w-fit shadow-brutal">
-              <span className="font-mono text-[9px] font-black bg-ink text-[#A2FF00] px-2 py-0.5 uppercase tracking-widest shrink-0">Now</span>
-              <p className="font-mono text-[11px] text-ink leading-snug">
-                Building Mobile Apps · PT Kirana Megatara
-              </p>
-            </div>
-            <GitHubActivity />
-          </div>
-        </div>
-
-        {/* Right Column (Avatar) */}
-        <div className="flex justify-center md:justify-end items-center mt-2 md:mt-0 z-10 w-full md:w-[40%]">
-          <div className="group relative w-[65%] max-w-[180px] sm:max-w-[200px] md:max-w-[280px]">
-            {/* Polaroid Frame */}
-            <div className="bg-surface border-[3px] md:border-4 border-ink p-3 pb-12 md:pb-14 rotate-3 group-hover:rotate-0 transition-all duration-500 shadow-brutal relative z-10">
-              <div className="relative w-full aspect-[4/5] border-2 border-ink overflow-hidden bg-surface-alt">
-                <Image
-                  src="/avatar.png"
-                  alt="Joevan Pramana Achmad"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 280px"
-                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                  priority
-                />
-              </div>
-              <p className="text-center mt-2 md:mt-4 font-mono text-[9px] md:text-xs font-bold tracking-widest text-ink">
-                Me, IRL.
-              </p>
-              {/* Star Icon */}
-              <svg className="absolute bottom-3 md:bottom-4 right-3 md:right-4 w-5 h-5 md:w-6 md:h-6" viewBox="0 0 24 24" fill="#A2FF00" stroke="#000000" strokeWidth="2.5" strokeLinejoin="round">
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-              </svg>
-            </div>
-          </div>
-        </div>
-
+    <section
+      id="about"
+      ref={sectionRef}
+      className="scroll-mt-20 relative w-full overflow-hidden flex flex-col justify-between pt-16 sm:pt-20 md:pt-24 pb-14 sm:pb-16 border-t border-purple-500/15"
+    >
+      {/* Background 3D Bioluminescent Garden Atmosphere */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none">
+        <video
+          ref={videoRef}
+          src={V_HERO_BG}
+          muted
+          autoPlay
+          loop
+          playsInline
+          preload="auto"
+          className="w-full h-full object-cover object-center opacity-40"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#070412]/90 via-[#070412]/70 to-[#070412] pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#070412] to-transparent pointer-events-none" />
       </div>
 
-      {/* Scrolling Ticker Strip */}
-      <div className="absolute bottom-0 left-0 right-0 overflow-hidden border-t-[3px] border-ink bg-ink" style={{ height: '48px' }}>
-        <div style={{ display: 'inline-flex', whiteSpace: 'nowrap', height: '100%', alignItems: 'center', animation: 'scroll-x 30s linear infinite' }}>
-          {[...Array(6)].map((_, i) => (
-            <span key={i} className="font-mono text-xs font-bold text-[#A2FF00] uppercase tracking-widest" style={{ paddingLeft: '2.5rem', paddingRight: '2.5rem' }}>
-              CODE IS ART · BUILD WITH PASSION · BREAK THE RULES · STAY CURIOUS · KEEP SHIPPING ·
-            </span>
-          ))}
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Pill Tag */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="text-center mb-8 sm:mb-12"
+        >
+          <div className="glass-pill px-4 py-1.5 inline-flex items-center gap-2 text-xs font-mono tracking-wider shadow-xl border border-purple-500/25 bg-[#140b28]/80 backdrop-blur-xl">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#A2FF00] shadow-[0_0_8px_#A2FF00] animate-pulse" />
+            <span className="text-white/90 font-medium">About Me</span>
+            <span className="text-white/30">·</span>
+            <span className="text-white/80 font-mono">Joevan Pramana Achmad</span>
+            <span className="text-white/30 hidden sm:inline">·</span>
+            <span className="text-white/60 hidden sm:inline">Software Engineer</span>
+          </div>
+
+          <h1 className="font-instrument text-4xl sm:text-6xl md:text-7xl text-white tracking-tight leading-[1.05] mt-4">
+            Engineering Scalable Systems
+            <br />
+            <em className="italic font-normal text-white/60">With Precision &amp; Craft</em>
+            <span className="text-[#A2FF00]">.</span>
+          </h1>
+        </motion.div>
+
+        {/* 2-Column Editorial About Profile */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch mb-12 sm:mb-16">
+          
+          {/* Left Column: Portrait & Identity Card (4 Cols) */}
+          <motion.div
+            initial={{ opacity: 0, x: -25 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
+            className="lg:col-span-5 flex flex-col justify-between glass-panel rounded-3xl p-6 sm:p-7 border border-white/15 shadow-2xl relative overflow-hidden"
+          >
+            {/* Top Status */}
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#A2FF00] shadow-[0_0_8px_#A2FF00]" />
+                <span className="font-mono text-xs uppercase tracking-wider text-[#A2FF00] font-bold">
+                  Open to Work
+                </span>
+              </div>
+              <span className="font-mono text-[11px] text-white/50">Jakarta, ID (WIB)</span>
+            </div>
+
+            {/* Avatar Photo Frame */}
+            <div className="relative w-full aspect-square max-w-[260px] mx-auto rounded-2xl overflow-hidden border border-white/20 shadow-2xl bg-black/60 mb-5 group">
+              <Image
+                src="/avatar.png"
+                alt="Joevan Pramana Achmad - Full Stack & Backend Engineer"
+                fill
+                priority
+                sizes="(max-width: 768px) 260px, 300px"
+                className="object-cover object-top filter contrast-105 group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-white/90">
+                <span className="glass-pill px-2.5 py-1 bg-black/70 border border-white/20">
+                  Full Stack &amp; Backend
+                </span>
+                <span className="text-[#A2FF00] font-bold">JPA.</span>
+              </div>
+            </div>
+
+            {/* Quick Profile Meta */}
+            <div className="space-y-2 font-mono text-xs text-white/80 mb-6">
+              <div className="flex justify-between border-b border-white/10 pb-2">
+                <span className="text-white/40">Full Name</span>
+                <span className="text-white font-medium">Joevan Pramana Achmad</span>
+              </div>
+              <div className="flex justify-between border-b border-white/10 pb-2">
+                <span className="text-white/40">Education</span>
+                <span className="text-white font-medium">Univ. Nasional (CS)</span>
+              </div>
+              <div className="flex justify-between border-b border-white/10 pb-2">
+                <span className="text-white/40">Specialization</span>
+                <span className="text-white font-medium">Distributed Backends</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-white/40">Core Stack</span>
+                <span className="text-[#A2FF00] font-medium">Go · Node.js · Cloud</span>
+              </div>
+            </div>
+
+            {/* Download Resume Action Button */}
+            <a
+              href="/cv.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#000000', backgroundColor: '#ffffff' }}
+              className="w-full py-3 rounded-full text-xs font-mono font-bold !text-black !bg-white hover:!bg-[#A2FF00] transition-colors flex items-center justify-center gap-2 shadow-xl cursor-pointer"
+            >
+              <span style={{ color: '#000000' }}>Download Resume (CV)</span>
+              <Download size={14} style={{ color: '#000000' }} />
+            </a>
+          </motion.div>
+
+          {/* Right Column: Personal Story & Impact Metrics (7 Cols) */}
+          <motion.div
+            initial={{ opacity: 0, x: 25 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.25, ease: EASE }}
+            className="lg:col-span-7 flex flex-col justify-between gap-6"
+          >
+            {/* Narrative Story Card */}
+            <div className="glass-panel rounded-3xl p-6 sm:p-8 border border-white/15 shadow-xl flex flex-col justify-between flex-grow">
+              <div>
+                <span className="font-mono text-xs uppercase tracking-widest text-[#A2FF00] font-bold mb-3 block">
+                  // BIOGRAPHY &amp; ENGINEERING CRAFT
+                </span>
+
+                <h3 className="font-instrument text-2xl sm:text-3xl text-white font-bold tracking-tight mb-4">
+                  Building dependable backends that scale seamlessly under real-world pressure.
+                </h3>
+
+                <div className="space-y-3.5 text-xs sm:text-sm text-white/75 leading-relaxed font-normal">
+                  <p>
+                    Halo! I&apos;m <strong className="text-white font-semibold">Joevan Pramana Achmad</strong>, a software engineer with a deep focus on high-throughput backend services, resilient distributed architectures, and modern web applications.
+                  </p>
+                  <p>
+                    My professional experience spans architecting robust API gateways and enterprise SAP synchronization at <span className="text-white font-medium">PT Kirana Megatara</span>, designing secure backend services at <span className="text-white font-medium">BRI Life</span>, and building high-concurrency platforms capable of sustaining <span className="text-[#A2FF00] font-mono">10,000+ requests per second</span> without latency spikes.
+                  </p>
+                  <p>
+                    This portfolio showcases the production microservices, data analytics pipelines, and interactive digital products I engineer using Go, Node.js, TypeScript, PostgreSQL, and cloud architectures.
+                  </p>
+                </div>
+              </div>
+
+              {/* View Selected Works CTA */}
+              <div className="pt-6 mt-6 border-t border-white/10 flex items-center justify-between">
+                <span className="font-mono text-xs text-white/50 hidden sm:inline">
+                  Explore selected engineering projects below
+                </span>
+                <a
+                  href="#works"
+                  className="glass-pill px-5 py-2.5 text-xs font-mono uppercase tracking-wider text-white hover:text-[#A2FF00] hover:border-[#A2FF00]/40 transition-colors flex items-center gap-2 border border-white/20 bg-white/[0.04] shadow-md ml-auto"
+                >
+                  <span>View Selected Works</span>
+                  <ArrowUpRight size={14} />
+                </a>
+              </div>
+            </div>
+
+            {/* Impact Metric Grid (4 Stats) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+              {IMPACT_METRICS.map((metric, idx) => {
+                const IconComponent = metric.icon
+                return (
+                  <div
+                    key={metric.label}
+                    className="glass-panel rounded-2xl p-4 border border-white/10 flex flex-col justify-between hover:border-white/25 transition-all shadow-md"
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-instrument text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                        {metric.value}
+                      </span>
+                      <IconComponent size={15} className="text-[#A2FF00]/80" />
+                    </div>
+                    <div>
+                      <h4 className="font-mono text-[11px] font-bold text-white/90 leading-snug">
+                        {metric.label}
+                      </h4>
+                      <p className="font-mono text-[9px] text-white/40 mt-0.5 leading-tight">
+                        {metric.desc}
+                      </p>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </motion.div>
         </div>
+
       </div>
     </section>
   )

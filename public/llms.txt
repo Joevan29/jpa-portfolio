@@ -1,0 +1,24 @@
+# Joevan Pramana Achmad — Portfolio
+
+> Full Stack & Backend Engineer specializing in high-throughput distributed systems, scalable microservices, and modern cloud infrastructure.
+
+## About
+- Name: Joevan Pramana Achmad
+- Location: Jakarta, Indonesia
+- Role: Full Stack & Backend Engineer
+- Website: https://joevan.site
+- GitHub: https://github.com/Joevan29
+- LinkedIn: https://www.linkedin.com/in/jvnprmnachmd/
+- Instagram: https://www.instagram.com/aequorreditusjoi
+- Email: joevanpan@outlook.com
+
+## Core Competencies
+- Backend & Cloud: Go, Node.js, PostgreSQL, Redis, Docker, Kubernetes, Apache Kafka, Linux
+- Data & Machine Learning: Google BigQuery, Python, SQL, Looker Studio, Streamlit, Pandas
+- Frontend & Mobile: Next.js 16, React 19, React Native, TypeScript, Tailwind CSS
+- Architecture: REST & gRPC, Microservices, Clean Architecture, CI/CD, IoT Telemetry
+
+## Experience
+- PT Kirana Megatara Tbk — Full Stack Engineer (Enterprise ERP, SAP Integrations, High-concurrency operations)
+- PT Asuransi BRI Life — Backend & Distributed Services (Financial backend APIs, security, microservices)
+- Universitas Nasional — Computer Science Graduate (Distributed systems, high-availability architecture)
