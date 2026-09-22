@@ -17,15 +17,6 @@ export default function Home() {
       <section id="home" className="footer" aria-label="JPA Studio Character Interactive Experience">
         <FooterBackground />
 
-        {/* ── Aurora Bokeh Glow Orbs (semi-transparent, sit over mascot video) ── */}
-        {/* Large violet/indigo glow at bottom center — wraps mascot body */}
-        <div aria-hidden="true" style={{ position:'absolute', bottom:'-10%', left:'50%', transform:'translateX(-50%)', width:'80vw', height:'70vw', borderRadius:'50%', background:'radial-gradient(ellipse, rgba(108,40,217,0.45) 0%, rgba(67,16,170,0.22) 45%, transparent 70%)', filter:'blur(48px)', zIndex:0, pointerEvents:'none' }} />
-        {/* Magenta/pink glow top-right corner */}
-        <div aria-hidden="true" style={{ position:'absolute', top:'-5%', right:'-5%', width:'42vw', height:'42vw', borderRadius:'50%', background:'radial-gradient(ellipse, rgba(192,38,211,0.28) 0%, rgba(147,51,234,0.15) 55%, transparent 70%)', filter:'blur(60px)', zIndex:0, pointerEvents:'none' }} />
-        {/* Indigo/blue glow top-left corner */}
-        <div aria-hidden="true" style={{ position:'absolute', top:'-5%', left:'-5%', width:'38vw', height:'38vw', borderRadius:'50%', background:'radial-gradient(ellipse, rgba(79,70,229,0.28) 0%, rgba(55,48,163,0.15) 55%, transparent 70%)', filter:'blur(52px)', zIndex:0, pointerEvents:'none' }} />
-        {/* Edge vignette — deepens the dark border, keeps mascot center bright */}
-        <div aria-hidden="true" style={{ position:'absolute', inset:0, zIndex:0, pointerEvents:'none', background:'radial-gradient(ellipse 85% 85% at 50% 50%, transparent 35%, rgba(3,1,10,0.65) 100%)' }} />
 
         {/* Left Information Block aligned with Joevan's portfolio */}
         <div className="jobs" style={{ position: 'relative', zIndex: 1 }}>
@@ -85,7 +76,7 @@ export default function Home() {
         </div>
 
         {/* Seamless Soft Dark Gradient Transition to Portfolio */}
-        <div className="absolute inset-x-0 bottom-0 h-40 sm:h-56 bg-gradient-to-t from-[#070412] via-[#070412]/70 to-transparent pointer-events-none z-10" />
+        <div className="absolute inset-x-0 bottom-0 h-16 sm:h-24 bg-gradient-to-t from-[#070412] to-transparent pointer-events-none z-10" />
 
         {/* Explore Portfolio Prompt Pill - High Visibility Contrast */}
         <a 

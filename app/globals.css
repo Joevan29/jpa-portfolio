@@ -80,8 +80,8 @@ a:focus-visible {
   isolation: isolate;
   overflow: hidden;
   color: #ffffff;
-  /* Deep dark base — aurora bokeh orbs are layered on top via page.tsx */
-  background: #06030e;
+  /* Deep black matching the video background perfectly */
+  background: #000000;
   font-family: 'DM Sans', Arial, sans-serif;
 }
 
@@ -217,8 +217,12 @@ a:focus-visible {
 .footer-background {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000000;
 }
 
 .footer-background video {
@@ -239,7 +243,7 @@ a:focus-visible {
     gap: 36px;
     min-height: 100svh;
     padding: 40px 24px 0;
-    background: #06030e;
+    background: #000000;
   }
   .logo {
     position: static;
@@ -327,6 +331,8 @@ a:focus-visible {
     width: calc(100% + 48px);
     aspect-ratio: 4/3;
     margin-top: -16px;
+    display: block;
+    background: #000000;
   }
   .footer-background video {
     position: absolute;

@@ -1,105 +1,169 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import gazeFrames from './gaze-frames.json';
 
-const TAU = Math.PI * 2;
-const wrappedAngle = (angle: number) => (angle % TAU + TAU) % TAU;
-
-// These angles were measured from the actual pupil positions in the clip's
-// first complete orbit. Match direction, rather than assuming constant speed.
-function timeForAngle(angle: number) {
-  const target = wrappedAngle(angle);
-  let nearestTime = gazeFrames[0][1];
-  let nearestDistance = Infinity;
-  for (const [sampleAngle, time] of gazeFrames) {
-    const difference = Math.abs(target - sampleAngle);
-    const distance = Math.min(difference, TAU - difference);
-    if (distance < nearestDistance) {
-      nearestDistance = distance;
-      nearestTime = time;
-    }
-  }
-  return nearestTime + 1 / 240;
+export interface AntiGravityCursorScrubProps {
+  videoFile?: string;
+  axis?: 'Vertical' | 'Horizontal' | 'DistanceToCenter';
+  tracking?: 'Window' | 'Component';
+  smoothing?: number;
+  reverse?: boolean;
+  fit?: 'cover' | 'contain';
+  className?: string;
 }
 
-export default function FooterBackground() {
+/**
+ * AntiGravityCursorScrub
+ * High-performance cursor-scrubbed video component simulating weightless floating inertia.
+ * Designed specifically for clean anti-gravity plates and zero-latency frame navigation.
+ */
+export function AntiGravityCursorScrub({
+  videoFile = '/joy_smooth.mp4',
+  axis = 'Vertical',
+  tracking = 'Window',
+  smoothing = 0.22,
+  reverse = false,
+  fit = 'cover',
+  className = '',
+}: AntiGravityCursorScrubProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const video = videoRef.current!;
-    let frame = 0;
-    let desiredTime = 0;
-    let pointer: { x: number; y: number } | null = null;
-    let disposed = false;
-    const mobile = window.matchMedia('(max-width: 700px)');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const video = videoRef.current;
+    if (!video) return;
 
-    const seek = () => {
-      frame = 0;
-      if (disposed || mobile.matches || video.readyState < 2 || video.seeking) return;
-      if (Math.abs(video.currentTime - desiredTime) > 1 / 48) {
-        video.currentTime = Math.min(desiredTime, video.duration - 1 / 24);
+    let targetTime = 0;
+    let currentTime = 0;
+    let rafId = 0;
+    let disposed = false;
+
+    // Preload buffer and metadata
+    video.preload = 'auto';
+    video.muted = true;
+    video.load();
+
+    const handlePointer = (clientX: number, clientY: number) => {
+      if (!video.duration || Number.isNaN(video.duration)) return;
+
+      let progress = 0;
+
+      if (tracking === 'Window') {
+        if (axis === 'DistanceToCenter') {
+          const cx = window.innerWidth / 2;
+          const cy = window.innerHeight / 2;
+          const dist = Math.hypot(clientX - cx, clientY - cy);
+          const maxDist = Math.hypot(cx, cy);
+          progress = Math.min(Math.max(0, dist / maxDist), 1);
+        } else if (axis === 'Horizontal') {
+          progress = Math.min(Math.max(0, clientX / window.innerWidth), 1);
+        } else {
+          // Vertical (Default)
+          progress = Math.min(Math.max(0, clientY / window.innerHeight), 1);
+        }
+      } else if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        if (axis === 'DistanceToCenter') {
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const dist = Math.hypot(clientX - cx, clientY - cy);
+          const maxDist = Math.hypot(rect.width / 2, rect.height / 2);
+          progress = Math.min(Math.max(0, dist / maxDist), 1);
+        } else if (axis === 'Horizontal') {
+          progress = Math.min(Math.max(0, (clientX - rect.left) / rect.width), 1);
+        } else {
+          progress = Math.min(Math.max(0, (clientY - rect.top) / rect.height), 1);
+        }
+      }
+
+      if (reverse) {
+        progress = 1 - progress;
+      }
+
+      const maxDuration = Math.max(0, video.duration - 0.04);
+      targetTime = progress * maxDuration;
+    };
+
+    // Smooth Lerp loop using requestAnimationFrame with floating anti-gravity inertia
+    const updateLoop = () => {
+      if (disposed) return;
+
+      if (video.readyState >= 2) {
+        const diff = targetTime - currentTime;
+        if (Math.abs(diff) > 0.001) {
+          currentTime += diff * smoothing;
+          video.currentTime = Math.min(Math.max(0, currentTime), video.duration || 5.0);
+        }
+      }
+
+      rafId = requestAnimationFrame(updateLoop);
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      handlePointer(e.clientX, e.clientY);
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        handlePointer(e.touches[0].clientX, e.touches[0].clientY);
       }
     };
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(seek);
-    };
-    const updateTarget = () => {
-      if (mobile.matches || !pointer) return;
-      const rect = video.getBoundingClientRect();
-      const scale = Math.max(rect.width / 1920, rect.height / 1080);
-      // Match the exact object-fit: cover positioning, including mobile crops.
-      const eyeX = rect.left + rect.width / 2 + (948 - 960) * scale;
-      const eyeY = rect.top + rect.height / 2 + (418 - 540) * scale;
-      const dx = pointer.x - eyeX;
-      const dy = pointer.y - eyeY;
-      // Avoid unstable angles directly between the eyes.
-      if (Math.hypot(dx, dy) > 8) {
-        desiredTime = timeForAngle(Math.atan2(dy, dx));
-        schedule();
+
+    const onScroll = () => {
+      if (window.innerWidth <= 700 && video.duration) {
+        const scrollY = window.scrollY;
+        const progress = Math.min(Math.max(0, scrollY / (window.innerHeight * 0.7)), 1);
+        targetTime = (reverse ? 1 - progress : progress) * Math.max(0, video.duration - 0.04);
       }
     };
-    const move = (event: PointerEvent) => {
-      pointer = { x: event.clientX, y: event.clientY };
-      updateTarget();
+
+    const onLoadedMetadata = () => {
+      video.currentTime = reverse ? Math.max(0, video.duration - 0.04) : 0;
+      currentTime = video.currentTime;
+      targetTime = video.currentTime;
+      video.pause();
     };
-    const ready = () => {
-      video.loop = mobile.matches;
-      if (mobile.matches && !reducedMotion.matches) {
-        void video.play().catch(() => { /* Keep the first frame if autoplay is unavailable. */ });
-      } else {
-        video.pause();
-        if (!mobile.matches) { updateTarget(); schedule(); }
-      }
-    };
-    // Coalesce fast pointer movements while a frame is decoding. When it
-    // finishes, seek immediately to the latest requested gaze direction.
-    video.addEventListener('seeked', schedule);
-    video.addEventListener('loadeddata', ready);
-    mobile.addEventListener('change', ready);
-    reducedMotion.addEventListener('change', ready);
-    window.addEventListener('pointermove', move, { passive: true });
-    window.addEventListener('resize', updateTarget);
-    window.addEventListener('scroll', updateTarget, { passive: true });
-    if (video.readyState >= 2) ready();
+
+    video.addEventListener('loadedmetadata', onLoadedMetadata);
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    rafId = requestAnimationFrame(updateLoop);
 
     return () => {
       disposed = true;
-      cancelAnimationFrame(frame);
-      video.removeEventListener('seeked', schedule);
-      video.removeEventListener('loadeddata', ready);
-      mobile.removeEventListener('change', ready);
-      reducedMotion.removeEventListener('change', ready);
-      window.removeEventListener('pointermove', move);
-      window.removeEventListener('resize', updateTarget);
-      window.removeEventListener('scroll', updateTarget);
+      cancelAnimationFrame(rafId);
+      video.removeEventListener('loadedmetadata', onLoadedMetadata);
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('scroll', onScroll);
     };
-  }, []);
+  }, [axis, tracking, smoothing, reverse]);
 
   return (
-    <div className="footer-background" aria-hidden="true">
-      <video ref={videoRef} muted playsInline preload="auto" src="/footer-scrub.mp4" />
+    <div
+      ref={containerRef}
+      className={`footer-background pointer-events-none ${className}`}
+      aria-hidden="true"
+    >
+      <video
+        ref={videoRef}
+        muted
+        playsInline
+        preload="auto"
+        src={videoFile}
+        className="character-video block pointer-events-none"
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: fit,
+          objectPosition: 'center',
+        }}
+      />
     </div>
   );
 }
+
+// Default export alias for seamless integration with Home page
+export default AntiGravityCursorScrub;
